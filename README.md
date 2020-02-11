@@ -11,4 +11,6 @@ Interface for computing statistical measures of attraction between words (cooccu
 # development version:
 devtools::install_github("sylvainloiseau/wam",  build_vignettes=TRUE)
 ```
+# Documentation
 
+See the [vignette](https://github.com/sylvainloiseau/wam/blob/master/doc/wam.pdf)

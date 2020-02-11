@@ -1,24 +1,3 @@
-%semantic differences between near synonyms (cf., e.g., Church & Hanks 1990).
-%p. 216
-
-% for the identification of subtle semantic differences between near-synonyms (cf. Manning & Schütze 2000: 153).
-%p. 216
-
-%In a series of papers, Church and his collaborators address these problems and argue in favor of statistical, information-theoretical methods of quanti- fying (significant) degrees of association between words (i.e. degrees of collo- cational strength) (Church et al. 1990, 1991, 1994). However, while the basic argument is by now generally accepted, it is far from clear which method is optimally suited for linguistic research, and Church et al.’s work has triggered a number of studies proposing a variety of measures for this purpose (cf. Dun- ning (1993), Pedersen (1996); cf. Oakes (1998) as well as Manning & Schütze (2000) for overviews).
-
-%Stefanowitch et Gries 2003 : 217
-
-%(e.g. Berry-Rogghe’s (1974) z-score, Church et al.’s (1991) t-score).
-%Stefanowitch et Gries 2003 : 217
-
-%Second, some statistics are particularly prone to strongly overestimating association strengths and/or underestimating the probability of error when extremely rare collocations are investigated (e.g. MI)
-
-% Dunning’s (1993) log-likelihood coefficient
-
-%(cf. e.g. Church and Hanks 1990; Clear 1993; Stubbs 1995; Manning
-% and Schütze 2001; see also Evert and Krenn 2001; Evert 2004)
-% http://www.anglistik.uni-muenchen.de/personen/professoren/schmid/schmid_publ/collostructional-analysis.pdf
-
 \documentclass{article}
 %\VignetteIndexEntry{Introduction to lexicalStat}
 \usepackage{lmodern}
@@ -69,7 +48,7 @@ library(wam);
 This package contains
 
 \begin{itemize}
-\item implementations of several functions for computing word association strength ;
+\item implementations of several functions for computing word association strength;
 \item a hig level set of functions for conveniently apply these functions to corpora.
 \end{itemize}
 
@@ -92,6 +71,57 @@ a word and a subcorpora
 % : association between two words
 % is simply the association between a word and the subcorpus made of all its
 % cooccurrences with the other word.
+
+% ----------------------------------------------------------------
+% ----------------------------------------------------------------
+\section{Usage}
+% ----------------------------------------------------------------
+% ----------------------------------------------------------------
+\label{sec:indicators}
+
+The function \emph{wam} provide a high level interface to the actual functions.
+
+The data are best represented in a data frame giving for each form:
+\begin{itemize}
+\item the form
+\item the subcorpus name
+\item k: the frequency of the form in the subcorpus
+\item N: the number of occurrences in the corpus
+\item K: the frequency of the for in the corpus
+\item n: the number of occurrences in the subcorpus
+\end{itemize}
+
+<<wam_data, echo=TRUE, fig=FALSE>>=
+data(robespierre, package="wam")
+head(robespierre)
+@
+
+The function 'wam' allows for computing several indicators at the same time.
+
+<<wam_wam, echo=TRUE, fig=FALSE>>=
+wam.res <- wam(data=robespierre, measure=c("loglikelihood", "specificities"))
+@
+
+The result can be printed, sorted by one of the computed indicator, and filtered to one of the subcorpus under scrutiny:
+
+<<wam_wam3, echo=TRUE, fig=FALSE>>=
+print(wam.res, from=1, to=10, sort.by="specificities", parts="D4");
+@
+% 
+% function allows for retrieving the basic information (see the manual page for WordAssociation):
+% 
+% <<wam_wam2, echo=TRUE, fig=FALSE>>=
+% head(k(wam.res));
+% @
+% 
+% <<wam_wam2, echo=TRUE, fig=FALSE>>=
+% head(association(wam.res));
+% indicator.name(wam.res);
+% unique(parts(wam.res));
+% @
+
+
+% TODO other function for printing the result.
 
 % % ................................................................
 % \subsection{Example 1 : computing the association between two words}
@@ -600,45 +630,6 @@ Graph of the function :
 % # points(expected, wam.collostruction(N, n, K, expected), pch="x")
 % # legend("right",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 % @
-
-% ----------------------------------------------------------------
-% ----------------------------------------------------------------
-\section{High level interface}
-% ----------------------------------------------------------------
-% ----------------------------------------------------------------
-\label{sec:indicators}
-
-The function \emph{wam} provide a more high level interface to the actual functions.
-
-This function allows for computing several indicators at the same time.
-
-It takes also as argument the subcorpus name and lexical types.
-
-<<wam_wam, echo=TRUE, fig=FALSE>>=
-rm(list=ls())
-data(robespierre, package="wam")
-wam.res <- wam(data=robespierre, measure=c("loglikelihood", "specificities"))
-@
-
-function allows for retrieving the basic information (see the manual page for WordAssociation):
-
-<<wam_wam2, echo=TRUE, fig=FALSE>>=
-head(k(wam.res));
-@
-
-<<wam_wam2, echo=TRUE, fig=FALSE>>=
-head(association(wam.res));
-indicator.name(wam.res);
-unique(parts(wam.res));
-@
-
-The print function allows for an easy to use reading of the results. See :
-
-<<wam_wam3, echo=TRUE, fig=FALSE>>=
-print(wam.res, from=1, to=10, parts="D4");
-@
-
-% TODO other function for printing the result.
 
 % ----------------------------------------------------------------
 % ----------------------------------------------------------------

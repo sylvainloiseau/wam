@@ -8,7 +8,26 @@ library(wam);
 
 
 ###################################################
-### code chunk number 2: wam_argument_setup
+### code chunk number 2: wam_data
+###################################################
+data(robespierre, package="wam")
+head(robespierre)
+
+
+###################################################
+### code chunk number 3: wam_wam
+###################################################
+wam.res <- wam(data=robespierre, measure=c("loglikelihood", "specificities"))
+
+
+###################################################
+### code chunk number 4: wam_wam3
+###################################################
+print(wam.res, from=1, to=10, sort.by="specificities", parts="D4");
+
+
+###################################################
+### code chunk number 5: wam_argument_setup
 ###################################################
 data(robespierre, package="wam")
 head(robespierre)
@@ -28,7 +47,7 @@ expected
 
 
 ###################################################
-### code chunk number 3: comparison
+### code chunk number 6: comparison
 ###################################################
 # data(ar)
 # ar <- ar[1,]
@@ -66,7 +85,7 @@ par(op)
 
 
 ###################################################
-### code chunk number 4: wam_loglikelihood
+### code chunk number 7: wam_loglikelihood
 ###################################################
 wam.loglikelihood(N, n, K, k);
 expected <- round(K * n / N)
@@ -74,7 +93,7 @@ wam.loglikelihood(N, n, K, expected);
 
 
 ###################################################
-### code chunk number 5: wam_loglikelihood_graph
+### code chunk number 8: wam_loglikelihood_graph
 ###################################################
 maxk <- min(K,n)
 maxk
@@ -90,14 +109,14 @@ legend("right",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 
 
 ###################################################
-### code chunk number 6: wam_specificities
+### code chunk number 9: wam_specificities
 ###################################################
 wam.specificities(N, n, K, k, method="base");
 wam.specificities(N, n, K, expected, method="base");
 
 
 ###################################################
-### code chunk number 7: wam_specificities_graph
+### code chunk number 10: wam_specificities_graph
 ###################################################
 plot(wam.specificities(N, n, K, allk, method="base"),
      type="l", xlab="k", ylab="specificities",
@@ -109,7 +128,7 @@ legend("top",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 
 
 ###################################################
-### code chunk number 8: wam_specificities_presentation3
+### code chunk number 11: wam_specificities_presentation3
 ###################################################
 mode <- floor((n+1)*(K+1)/(N+2));
 mode
@@ -122,7 +141,7 @@ points(mode, dhyper(mode, K, N-K, n), pch="x")
 
 
 ###################################################
-### code chunk number 9: wam_specificities_presentation5
+### code chunk number 12: wam_specificities_presentation5
 ###################################################
 y <- ifelse(allk <= mode, phyper(allk, K, N-K, n),
                           phyper(allk-1, K, N-K, n, lower.tail=FALSE))
@@ -134,7 +153,7 @@ plot(allk, y,
 
 
 ###################################################
-### code chunk number 10: wam_specificities_presentation5b
+### code chunk number 13: wam_specificities_presentation5b
 ###################################################
 y <- ifelse(allk <= mode, phyper(allk, K, N-K, n),
                        phyper(allk-1, K, N-K, n, lower.tail=FALSE))
@@ -147,7 +166,7 @@ plot(allk, y,
 
 
 ###################################################
-### code chunk number 11: wam_specificities_presentation5c
+### code chunk number 14: wam_specificities_presentation5c
 ###################################################
 plot(allk, wam.specificities(N, n, K, allk, method="base"),
 	type="l", xlab="k (possible subfrequency of peuple)",
@@ -156,7 +175,7 @@ plot(allk, wam.specificities(N, n, K, allk, method="base"),
 
 
 ###################################################
-### code chunk number 12: wam_specificities_presentation6
+### code chunk number 15: wam_specificities_presentation6
 ###################################################
 y <- ifelse(allk <= mode, phyper(allk, K, N-K, n, log.p=TRUE),
                        phyper(allk-1, K, N-K, n, lower.tail=FALSE, log.p=TRUE))
@@ -170,13 +189,13 @@ points(mode, phyper(mode, K, N-K, n, log.p=TRUE), pch="x")
 
 
 ###################################################
-### code chunk number 13: wam_specificities_presentation6b
+### code chunk number 16: wam_specificities_presentation6b
 ###################################################
 phyper(mode, K, N-K, n, log.p=TRUE)
 
 
 ###################################################
-### code chunk number 14: wam_specificities_presentation7
+### code chunk number 17: wam_specificities_presentation7
 ###################################################
 y <- ifelse(allk <= mode, phyper(allk, K, N-K, n, log.p=TRUE),
                        phyper(allk-1, K, N-K, n, lower.tail=FALSE, log.p=TRUE))
@@ -191,7 +210,7 @@ points(mode, wam.specificities(N, n, K, mode, method="log"), pch="x")
 
 
 ###################################################
-### code chunk number 15: wam_specificities_presentation8
+### code chunk number 18: wam_specificities_presentation8
 ###################################################
 plot(allk, wam.specificities(N, n, K, allk, method="log"),
 	type="l", xlab="k (possible subfrequency of peuple)",
@@ -202,20 +221,20 @@ points(mode, wam.specificities(N, n, K, mode, method="log"), pch="x")
 
 
 ###################################################
-### code chunk number 16: wam_specificities_presentation9
+### code chunk number 19: wam_specificities_presentation9
 ###################################################
 wam.specificities(N, n, K, mode, method="log");
 
 
 ###################################################
-### code chunk number 17: wam_z
+### code chunk number 20: wam_z
 ###################################################
 wam.z(N, n, K, k);
 wam.z(N, n, K, mode);
 
 
 ###################################################
-### code chunk number 18: wam_z_graph
+### code chunk number 21: wam_z_graph
 ###################################################
 plot(wam.z(N, n, K, allk),
      type="l", xlab="k", ylab="Z",
@@ -227,14 +246,14 @@ legend("right",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 
 
 ###################################################
-### code chunk number 19: wam_t
+### code chunk number 22: wam_t
 ###################################################
 wam.t(N, n, K, k);
 wam.t(N, n, K, mode);
 
 
 ###################################################
-### code chunk number 20: wam_t_graph
+### code chunk number 23: wam_t_graph
 ###################################################
 plot(allk, wam.t(N, n, K, allk),
      type="l", xlab="k", ylab="T",
@@ -246,14 +265,14 @@ legend("right",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 
 
 ###################################################
-### code chunk number 21: wam_chisq
+### code chunk number 24: wam_chisq
 ###################################################
 wam.chisq(N, n, K, k);
 wam.chisq(N, n, K, mode);
 
 
 ###################################################
-### code chunk number 22: wam_chisq_graph
+### code chunk number 25: wam_chisq_graph
 ###################################################
 plot(allk, wam.chisq(N, n, K, allk),
      type="l", xlab="k", ylab="Chi square",
@@ -265,37 +284,9 @@ legend("right",legend=c("k","expected"), pch=c("+","x"), cex=0.75)
 
 
 ###################################################
-### code chunk number 23: wam_collostruction
+### code chunk number 26: wam_collostruction
 ###################################################
 #wam.collostruction(N, n, K, k);
 #wam.collostruction(N, n, K, expected);
-
-
-###################################################
-### code chunk number 24: wam_wam
-###################################################
-rm(list=ls())
-data(robespierre, package="wam")
-wam.res <- wam(data=robespierre, measure=c("loglikelihood", "specificities"))
-
-
-###################################################
-### code chunk number 25: wam_wam2
-###################################################
-head(k(wam.res));
-
-
-###################################################
-### code chunk number 26: wam_wam2
-###################################################
-head(association(wam.res));
-indicator.name(wam.res);
-unique(parts(wam.res));
-
-
-###################################################
-### code chunk number 27: wam_wam3
-###################################################
-print(wam.res, from=1, to=10, parts="D4");
 
 

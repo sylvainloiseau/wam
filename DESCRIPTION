@@ -1,0 +1,15 @@
+Package: wam
+Type: Package
+Title: Word Association Measures
+Version: 0.1
+Date: 2013-04-05
+Authors@R: person("Sylvain", "Loiseau", email = "sylvain.loiseau@univ-paris13.fr", role = c("aut", "cre")); person("Bernard", "Desgraupes", email = "bernard.desgraupes@u-paris10.fr", role = c("aut", "cre"))
+Maintainer: Sylvain Loiseau <sylvain.loiseau@univ-paris13.fr>
+Description: functions for computing several measures of word association used in corpus linguistics.
+Depends: R (>= 2.9.0), methods
+License: BSD_3_clause + file LICENSE
+Lazyload: yes
+Collate: wam-functions.R wam.object.R wam.print.R utils.R pkg.R dataset.R
+Encoding: UTF-8
+RoxygenNote: 7.0.2
+URL: https://github.com/sylvainloiseau/wam
